@@ -13,7 +13,7 @@
 <div class="date author "> @{{ post.author.username }}</div>
 <p>
     {{ post.content|truncatechars:200 }}
-        <a href="{% url 'post-detail' post.pk %}">View more</a>
+        <a href="{% url 'draft-detail' post.pk %}">View more</a>
 </p>
         </div>
         {% endfor %}

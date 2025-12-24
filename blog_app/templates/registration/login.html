@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<form action="" method="post">
+{% csrf_token %}
+    <lablel class="form-label" fro="username">Username</lablel>
+    <input type="text" class="form-control" id="username" name="username" />
+        <lablel class="form-label" fro="password">Password</lablel>
+    <input type="password" class="form-control" id="password" name="password" />
+    <button type="sumbit" class="btn btn-primary mt-2">Login</button>
+</form>
+{% endblock content %}
