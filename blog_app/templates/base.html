@@ -23,9 +23,14 @@
           <a href="{% url 'post-draft' %}" class="btn text-white">
             <span class="material-symbols-outlined lg-icons"> Draft </span>
           </a>
-          <a href="{% url 'logout' %}" class="btn text-white">
-            <span class="material-symbols-outlined lg-icons"> logout </span>
-          </a>
+      <form action="{% url 'logout' %}" class="d-inline" method="post">
+
+{%csrf_token %}
+<button class="btn text-white" type="sumbit" aria-label="LOGOUT">
+  <span class="material-symbols-outlined lg-icons">logout</span>
+</button>
+
+      </form>
           {% else %}
           <a href="{% url 'login' %}" class="btn text-white">
             <span class="material-symbols-outlined lg-icons"> login </span>
