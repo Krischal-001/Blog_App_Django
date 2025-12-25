@@ -2,13 +2,37 @@
 
 {% block content %}
 
-
 <form action="" method="post">
-{% csrf_token %}
-    <lablel class="form-label" fro="username">Username</lablel>
-    <input type="text" class="form-control" id="username" name="username" />
-        <lablel class="form-label" fro="password">Password</lablel>
-    <input type="password" class="form-control" id="password" name="password" />
-    <button type="sumbit" class="btn btn-primary mt-2">Login</button>
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+        {{ form.non_field_errors }}
+    {% endif %}
+
+    <label class="form-label" for="username">Username</label>
+    {% if form.username.errors %}
+        {{ form.username.errors }}
+    {% endif %}
+    <input
+        type="text"
+        class="form-control"
+        id="username"
+        name="username"
+        value="{{ form.username.value|default_if_none:'' }}"
+    />
+
+    <label class="form-label mt-2" for="password">Password</label>
+    {% if form.password.errors %}
+        {{ form.password.errors }}
+    {% endif %}
+    <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password"
+    />
+
+    <button type="submit" class="btn btn-primary mt-3">Login</button>
 </form>
+
 {% endblock content %}
