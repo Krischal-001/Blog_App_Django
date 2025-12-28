@@ -7,6 +7,7 @@ from django.views.generic import ListView
 from django.views.generic import DetailView
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
+from django.views.generic import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 
@@ -85,6 +86,17 @@ class PostUpdateView(LoginRequiredMixin,UpdateView):
             return reverse("draft-detail",kwargs={"pk":post.pk})
 
     
+    
+class PostDeleteView(LoginRequiredMixin,View):
+    def get(self,pk,request):
+        post =Post.objects.get(pk=pk)
+        post.delete()
+        if post.published_at:
+         return redirect("post-list")
+        else:
+         return redirect("post-draft")   
+    
+    
 @login_required
 def post_delete(request, pk):
     post =Post.objects.get(pk=pk)
@@ -94,17 +106,16 @@ def post_delete(request, pk):
     else:
         return redirect("post-draft")
     
-@login_required
-def draft_publish(request,pk):
-    post=Post.objects.get(pk=pk,published_at__isnull=True)
-    post.published_at=timezone.now()
-    post.save()
-    return redirect ("post-list")
 
 
 
 
-
+class DraftPublishView(LoginRequiredMixin,View):
+    def get(self,request,pk):
+        post=Post.objects.get(pk=pk,published_at__isnull=True)
+        post.published_at=timezone.now()
+        post.save()
+        return redirect ("post-list")
 
 
     
