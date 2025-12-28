@@ -88,7 +88,7 @@ class PostUpdateView(LoginRequiredMixin,UpdateView):
     
     
 class PostDeleteView(LoginRequiredMixin,View):
-    def get(self,pk,request):
+    def get(self,request,pk):
         post =Post.objects.get(pk=pk)
         post.delete()
         if post.published_at:
@@ -96,15 +96,7 @@ class PostDeleteView(LoginRequiredMixin,View):
         else:
          return redirect("post-draft")   
     
-    
-@login_required
-def post_delete(request, pk):
-    post =Post.objects.get(pk=pk)
-    post.delete()
-    if post.published_at:
-        return redirect("post-list")
-    else:
-        return redirect("post-draft")
+
     
 
 
